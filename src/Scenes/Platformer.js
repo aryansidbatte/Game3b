@@ -116,7 +116,7 @@ class Platformer extends Phaser.Scene {
         this.overlay.add(veil);
 
         // Title text
-        const title = this.add.text(width * 0.5, height * 0.4, 'Cubey Platformer', {
+        const title = this.add.text(width * 0.5, height * 0.4, 'Blue Platformer', {
             fontSize: '48px',
             fontFamily: 'sans-serif'
         }).setOrigin(0.5).setScrollFactor(0);
