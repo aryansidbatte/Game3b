@@ -57,6 +57,27 @@ class Platformer extends Phaser.Scene {
         
         this.physics.world.setBoundsCollision(true, true, true, false);
 
+        // Mushroom object
+        this.mushrooms = this.map.createFromObjects("Objects", {
+            name: "Mushroom",
+            key: "tilemap_sheet",
+            frame: 30
+        });
+
+        const spawnPoint = this.map.findObject(
+            "Objects",
+            obj => obj.name === "spawn"
+        );
+
+        this.physics.world.enable(this.mushrooms, Phaser.Physics.Arcade.STATIC_BODY);
+
+        this.mushroomGroup = this.add.group(this.mushrooms);
+
+        // Handle collision detection with mushrooms
+        this.physics.add.overlap(my.sprite.player, this.mushroomGroup, (obj1, obj2) => {
+            obj2.destroy(); // remove coin on overlap
+        });
+
         // Enable collision handling
         this.physics.add.collider(my.sprite.player, this.groundLayer);
 
@@ -247,6 +268,10 @@ class Platformer extends Phaser.Scene {
 
         this.scene.start('endScene', { /* you can pass score/time here */ });
     }
+
+    if(Phaser.Input.Keyboard.JustDown(this.rKey)) {
+            this.scene.restart();
+        }
         
     }
 }
